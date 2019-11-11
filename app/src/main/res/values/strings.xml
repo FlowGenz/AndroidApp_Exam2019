@@ -1,3 +1,31 @@
 <resources>
+    <!--Main-->
     <string name="app_name">AndroidApp_Exam2019</string>
+
+    <!--Connection-->
+    <string name="connectionTitle">Connection</string>
+    <string name="connectionUserName">Username</string>
+    <string name="connectionPassword">Password</string>
+    <string name="connectionButtonLogin">Log in</string>
+    <string name="connectionNotRegistered">Not registered?</string>
+    <string name="connectionSignIn">Sign in</string>
+
+    <!--Register-->
+    <string name="registerTitle">Account information</string>
+    <string name="registerUsername">Username*</string>
+    <string name="registerPassword">Password*</string>
+    <string name="registerEmail">E-mail address*</string>
+    <string name="registerFName">First name*</string>
+    <string name="registerLName">Last name*</string>
+    <string name="registerAddress">Address</string>
+    <string name="registerPhone">Phone number</string>
+    <string name="registerPhonePrefix">+32</string>
+    <string name="registerCreateAccount">Create account</string>
+
+    <!--Navigation Bar-->
+    <string name="navHome">Home</string>
+    <string name="navShopping">Browse</string>
+    <string name="navFavorites">Favorites</string>
+    <string name="navCard">Card</string>
+    <string name="navProfile">Profile</string>
 </resources>

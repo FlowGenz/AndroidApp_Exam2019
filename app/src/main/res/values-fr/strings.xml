@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Main-->
+    <string name="app_name">AndroidApp_Exam2019</string>
+
+    <!--Connection-->
+    <string name="connectionTitle">Connexion</string>
+    <string name="connectionUserName">Nom d\'utilisateur</string>
+    <string name="connectionPassword">Mot de passe</string>
+    <string name="connectionButtonLogin">Se connecter</string>
+    <string name="connectionNotRegistered">Pas de compte ?</string>
+    <string name="connectionSignIn">S\'inscrire</string>
+
+    <!--Register-->
+    <string name="registerTitle">Informations du compte</string>
+    <string name="registerUsername">Nom d\'utilisateur*</string>
+    <string name="registerPassword">Mot de passe*</string>
+    <string name="registerEmail">Adresse e-mail*</string>
+    <string name="registerFName">Prénom*</string>
+    <string name="registerLName">Nom*</string>
+    <string name="registerAddress">Adresse</string>
+    <string name="registerPhone">Numéro de téléphone</string>
+    <string name="registerPhonePrefix">+32</string>
+    <string name="registerCreateAccount">Créer le compte</string>
+
+    <!--Navigation Bar-->
+    <string name="navHome">Accueil</string>
+    <string name="navShopping">Consulter</string>
+    <string name="navFavorites">Favoris</string>
+    <string name="navCard">Panier</string>
+    <string name="navProfile">Profil</string>
+</resources>

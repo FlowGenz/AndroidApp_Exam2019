@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigationMainScreenId"
+        android:icon="@drawable/ic_navigation_home"
+        android:title="@string/navHome" />
+    <item
+        android:icon="@drawable/ic_navigation_shopping"
+        android:title="@string/navShopping" />
+    <item
+        android:icon="@drawable/ic_navigation_favorites"
+        android:title="@string/navFavorites" />
+    <item
+        android:icon="@drawable/ic_navigation_card"
+        android:title="@string/navCard" />
+    <item
+        android:id="@+id/navigationProfileId"
+        android:icon="@drawable/ic_navigation_profile"
+        android:title="@string/navProfile" />
+</menu>
