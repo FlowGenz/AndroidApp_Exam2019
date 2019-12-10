@@ -31,8 +31,8 @@ public class ConnectionActivity extends AppCompatActivity {
         connectionLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentGoMainScreen = new Intent(ConnectionActivity.this, MainScreenActivity.class);
-                startActivity(intentGoMainScreen);
+                Intent intentGoPartner = new Intent(ConnectionActivity.this, PartnerActivity.class);
+                startActivity(intentGoPartner);
             }
         });
 

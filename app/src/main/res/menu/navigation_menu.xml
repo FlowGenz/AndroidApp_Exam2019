@@ -7,12 +7,15 @@
         android:icon="@drawable/ic_navigation_home"
         android:title="@string/navHome" />
     <item
+        android:id="@+id/navigationBrowseId"
         android:icon="@drawable/ic_navigation_shopping"
         android:title="@string/navShopping" />
     <item
+        android:id="@+id/navigationFavoritesId"
         android:icon="@drawable/ic_navigation_favorites"
         android:title="@string/navFavorites" />
     <item
+        android:id="@+id/navigationCardId"
         android:icon="@drawable/ic_navigation_card"
         android:title="@string/navCard" />
     <item

@@ -42,9 +42,9 @@
 
     <Button
         android:id="@+id/connectionLoginId"
-        android:layout_width="141dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="564dp"
+        android:layout_width="143dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="496dp"
         android:text="@string/connectionButtonLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,11 +54,11 @@
         android:id="@+id/connectionNotRegisteredId"
         android:layout_width="142dp"
         android:layout_height="31dp"
-        android:layout_marginTop="439dp"
+        android:layout_marginTop="408dp"
         android:text="@string/connectionNotRegistered"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +66,7 @@
         android:id="@+id/connectionSignInId"
         android:layout_width="75dp"
         android:layout_height="30dp"
-        android:layout_marginTop="476dp"
+        android:layout_marginTop="444dp"
         android:text="@string/connectionSignIn"
         android:textColor="#2196F3"
         app:autoSizeTextType="uniform"

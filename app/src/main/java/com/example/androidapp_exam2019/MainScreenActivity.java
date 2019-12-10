@@ -2,6 +2,7 @@ package com.example.androidapp_exam2019;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,18 +24,32 @@ public class MainScreenActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        /*mainScreenBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerId, new HomeFragment()).commit();
+
+        mainScreenBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment selectedFragment = null;
                 switch (menuItem.getItemId()) {
+                    case R.id.navigationMainScreenId :
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case R.id.navigationBrowseId :
+                        selectedFragment = new BrowseFragment();
+                        break;
+                    case R.id.navigationFavoritesId :
+                        selectedFragment = new FavoritesFragment();
+                        break;
+                    case R.id.navigationCardId :
+                        selectedFragment = new CardFragment();
+                        break;
                     case R.id.navigationProfileId :
-                        Intent intent = new Intent(MainScreenActivity.this, ProfileActivity.class);
-                        startActivity(intent);
+                        selectedFragment = new ProfileFragment();
                         break;
                 }
-
-                return false;
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerId, selectedFragment).commit();
+                return true;
             }
-        });*/
+        });
     }
 }

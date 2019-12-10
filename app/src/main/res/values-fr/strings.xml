@@ -29,4 +29,13 @@
     <string name="navFavorites">Favoris</string>
     <string name="navCard">Panier</string>
     <string name="navProfile">Profil</string>
+
+    <!--Browse-->
+    <string name="sort">Trier</string>
+    <string name="filter">Filtrer</string>
+
+    <!--Card-->
+    <string name="nbArticles">Nombre d\'articles :</string>
+    <string name="totalPrice">Prix total des articles :</string>
+    <string name="orderNow">Passer commande</string>
 </resources>
