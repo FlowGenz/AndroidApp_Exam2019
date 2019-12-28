@@ -10,54 +10,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/svDressId"
-            android:layout_width="409dp"
-            android:layout_height="52dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:focusable="auto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.005" />
 
-        <EditText
+        <!--<EditText
             android:id="@+id/etTriageId"
-            android:layout_width="196dp"
+            android:layout_width="200dp"
             android:layout_height="46dp"
+            android:layout_marginEnd="11dp"
             android:ems="10"
             android:hint="@string/sort"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/etFiltreId"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.096" />
+            app:layout_constraintVertical_bias="0.114" />
 
         <EditText
             android:id="@+id/etFiltreId"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="46dp"
             android:ems="10"
             android:hint="@string/filter"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.989"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.096" />
+            app:layout_constraintVertical_bias="0.116" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDressId"
-            android:layout_width="409dp"
-            android:layout_height="502dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.98" />
+            app:layout_constraintTop_toBottomOf="@+id/svDressId" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

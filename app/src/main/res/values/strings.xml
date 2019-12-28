@@ -1,6 +1,6 @@
 <resources>
     <!--Main-->
-    <string name="app_name">AndroidApp_Exam2019</string>
+    <string name="app_name">Elle\'Zina</string>
 
     <!--Connection-->
     <string name="connectionTitle">Connection</string>
@@ -14,13 +14,18 @@
     <string name="registerTitle">Account information</string>
     <string name="registerUsername">Username*</string>
     <string name="registerPassword">Password*</string>
+    <string name="registerPasswordConfirmation">Password Confirmation*</string>
     <string name="registerEmail">E-mail address*</string>
     <string name="registerFName">First name*</string>
     <string name="registerLName">Last name*</string>
     <string name="registerAddress">Address</string>
     <string name="registerPhone">Phone number</string>
-    <string name="registerPhonePrefix">+32</string>
+    <string name="registerPhonePrefix">+32 </string>
     <string name="registerCreateAccount">Create account</string>
+    <string name="registrationSuccesfull">Account successfully created</string>
+
+    <!--Partners-->
+    <string name="partnerTitle">Stores</string>
 
     <!--Navigation Bar-->
     <string name="navHome">Home</string>
@@ -37,4 +42,10 @@
     <string name="nbArticles">Number of articles :</string>
     <string name="totalPrice">Total price of the articles :</string>
     <string name="orderNow">Order now</string>
+
+    <!--Errors-->
+    <string name="emptyFieldError">Field cannot be empty</string>
+    <string name="passwordMismatchError">Passwords do not match each other</string>
+    <string name="usernameMinLengthError">Minimum length is 4 characters</string>
+    <string name="emailInvalidFormatError">Please enter a valid e-mail</string>
 </resources>

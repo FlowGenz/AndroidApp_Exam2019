@@ -1,31 +1,44 @@
 package com.example.androidapp_exam2019;
 
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.androidapp_exam2019.model.Dress;
 import com.example.androidapp_exam2019.model.Favorite;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FavoritesFragment extends Fragment {
+
+    @BindView(R.id.rvFavoritesId) public RecyclerView favRv;
+    Retrofit retrofit;
+    IDressApi dressApi;
+    Call<ArrayList<Favorite>> call;
 
 
     public FavoritesFragment() {
@@ -36,20 +49,57 @@ public class FavoritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        ButterKnife.bind(this, view);
+        FavoritesAdapter favoritesAdapter = new FavoritesAdapter();
+        favRv.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        favRv.setAdapter(favoritesAdapter);
+
+        retrofit = RetrofitSingleton.getClient();
+        dressApi = retrofit.create(IDressApi.class);
+
+        call = dressApi.getAllFavorites();
+        call.enqueue(new Callback<ArrayList<Favorite>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Favorite>> call, Response<ArrayList<Favorite>> response) {
+                if (!response.isSuccessful()) {
+                    //Toast.makeText(getContext(), response.toString(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                favoritesAdapter.setFavorites(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Favorite>> call, Throwable t) {
+                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        call.cancel();
     }
 
     private class FavoritesViewHolder extends RecyclerView.ViewHolder {
-        public ImageView favoritesIcon;
-        public TextView favoritesDescription;
+        public ImageView favoritesPicture;
+        public TextView favoritesName;
         public TextView favoritesPrice;
 
-        public FavoritesViewHolder(@NonNull View itemView) {
+        public FavoritesViewHolder(@NonNull View itemView, IOnItemSelectedListener listener) {
             super(itemView);
-            favoritesIcon = itemView.findViewById(R.id.favListIconId);
-            favoritesDescription = itemView.findViewById(R.id.favListDescriptionId);
+            favoritesPicture = itemView.findViewById(R.id.favListIconId);
+            favoritesName = itemView.findViewById(R.id.favListNameId);
             favoritesPrice = itemView.findViewById(R.id.favListPriceId);
+            itemView.setOnClickListener(e -> {
+                int currentPosition = getAdapterPosition();
+                listener.onItemSelected(currentPosition);
+            });
         }
     }
 
@@ -58,8 +108,12 @@ public class FavoritesFragment extends Fragment {
 
         @Override
         public FavoritesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.favorites_list_view, parent, false);
-            FavoritesViewHolder vh = new FavoritesViewHolder(linearLayout);
+            ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.favorites_list_view, parent, false);
+            FavoritesViewHolder vh = new FavoritesViewHolder(constraintLayout, position -> {
+                Intent intentGoDress = new Intent(getActivity().getApplicationContext(), ArticleActivity.class);
+                Favorite touchedFavorite = favorites.get(position);
+                startActivity(intentGoDress);
+            });
             return vh;
         }
 
@@ -67,13 +121,18 @@ public class FavoritesFragment extends Fragment {
         public void onBindViewHolder(@NonNull FavoritesViewHolder holder, int position) {
             Favorite f = favorites.get(position);
             //TODO
-            holder.favoritesDescription.setText(f.getDescription().toString());
-            holder.favoritesPrice.setText(f.getPrice().toString());
+            holder.favoritesName.setText("Name");
+            holder.favoritesPrice.setText("XX €");
         }
 
         @Override
         public int getItemCount() {
             return favorites == null ? 0 : favorites.size();
+        }
+
+        public void setFavorites(ArrayList<Favorite> favorites) {
+            this.favorites = favorites;
+            notifyDataSetChanged();
         }
     }
 

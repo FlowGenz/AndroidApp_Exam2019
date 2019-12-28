@@ -6,14 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PartnerActivity extends AppCompatActivity {
 
-    @BindView(R.id.ivPartnerBase)
-    ImageView partner;
+    @BindView(R.id.tvPartnerAmiraLebsatteId)
+    TextView partner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
