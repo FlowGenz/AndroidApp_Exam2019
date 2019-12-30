@@ -19,7 +19,7 @@
     <string name="registerEmail">Adresse e-mail*</string>
     <string name="registerFName">Prénom*</string>
     <string name="registerLName">Nom*</string>
-    <string name="registerAddress">Adresse</string>
+    <string name="registerAddress">Adresse*</string>
     <string name="registerPhone">Numéro de téléphone</string>
     <string name="registerPhonePrefix">+32 </string>
     <string name="registerCreateAccount">Créer le compte</string>
@@ -43,6 +43,24 @@
     <string name="nbArticles">Nombre d\'articles :</string>
     <string name="totalPrice">Prix total des articles :</string>
     <string name="orderNow">Passer commande</string>
+    <string name="dressAvailable">Disponible</string>
+    <string name="dressNotAvailable">Indisponible</string>
+
+    <!--Article-->
+    <string name="articleAddCard">Ajouter au panier</string>
+    <string name="articleAvailabilityTitle">Disponibilité</string>
+    <string name="articleSizeTitle">Taille</string>
+
+    <!--Profile-->
+    <string name="loyaltyPoints">Points de fidélité :</string>
+    <string name="profileLogout">Se déconnecter</string>
+    <string name="loyaltySystemDescription">Tous les 100 points de fidélités accumulés vous octroient un coupon de 10% de réduction sur toute robe disponible dans le magasin. Un seul coupon à la fois peut être utilisé.</string>
+
+    <!--Logout dialog-->
+    <string name="logoutDialogTitle">DECONNEXION</string>
+    <string name="logoutDialogMessage">Voulez vous vous déconnecter ?</string>
+    <string name="logoutDialogPositive">Oui</string>
+    <string name="logoutDialogNegative">Non</string>
 
     <!--Errors-->
     <string name="emptyFieldError">Ce champ ne peut pas être vide</string>

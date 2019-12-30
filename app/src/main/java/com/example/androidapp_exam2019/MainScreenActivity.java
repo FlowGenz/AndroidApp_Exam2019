@@ -3,6 +3,8 @@ package com.example.androidapp_exam2019;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import butterknife.ButterKnife;
 public class MainScreenActivity extends AppCompatActivity {
 
     @BindView(R.id.mainScreenBottomNavigationViewId) public BottomNavigationView mainScreenBottomNavigationView;
+    DressViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,8 @@ public class MainScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
 
         ButterKnife.bind(this);
+
+        model = ViewModelProviders.of(this).get(DressViewModel.class);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerId, new HomeFragment()).commit();
 
@@ -44,6 +49,7 @@ public class MainScreenActivity extends AppCompatActivity {
                         break;
                     case R.id.navigationProfileId :
                         selectedFragment = new ProfileFragment();
+                        //selectedFragment = new ArticleFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerId, selectedFragment).commit();

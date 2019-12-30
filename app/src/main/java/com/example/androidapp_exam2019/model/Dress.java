@@ -4,23 +4,25 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Dress {
-    private int id;
+    private String id;
     private String urlPicture;
     private String dressName;
-    private String describe;
+    private String description;
     private BigDecimal price;
+    private String size;
     private boolean available;
     private Date dateBeginAvailable;
     private Date dateEndAvailable;
-    private int partnerId;
+    private String partnerId;
     private String partnerName;
 
-    public Dress(int id, String urlPicture, String dressName, String describe, BigDecimal price, boolean available, Date dateBeginAvailable, Date dateEndAvailable, int partnerId, String partnerName) {
+    public Dress(String id, String urlPicture, String dressName, String description, BigDecimal price, String size, boolean available, Date dateBeginAvailable, Date dateEndAvailable, String partnerId, String partnerName) {
         this.id = id;
         this.urlPicture = urlPicture;
         this.dressName = dressName;
-        this.describe = describe;
+        this.description = description;
         this.price = price;
+        this.size = size;
         this.available = available;
         this.dateBeginAvailable = dateBeginAvailable;
         this.dateEndAvailable = dateEndAvailable;
@@ -28,7 +30,7 @@ public class Dress {
         this.partnerName = partnerName;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -40,12 +42,16 @@ public class Dress {
         return dressName;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDescription() {
+        return description;
     }
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public String getSize() {
+        return size;
     }
 
     public boolean isAvailable() {
@@ -60,7 +66,7 @@ public class Dress {
         return dateEndAvailable;
     }
 
-    public int getPartnerId() {
+    public String getPartnerId() {
         return partnerId;
     }
 

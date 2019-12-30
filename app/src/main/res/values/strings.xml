@@ -18,7 +18,7 @@
     <string name="registerEmail">E-mail address*</string>
     <string name="registerFName">First name*</string>
     <string name="registerLName">Last name*</string>
-    <string name="registerAddress">Address</string>
+    <string name="registerAddress">Address*</string>
     <string name="registerPhone">Phone number</string>
     <string name="registerPhonePrefix">+32 </string>
     <string name="registerCreateAccount">Create account</string>
@@ -42,6 +42,24 @@
     <string name="nbArticles">Number of articles :</string>
     <string name="totalPrice">Total price of the articles :</string>
     <string name="orderNow">Order now</string>
+    <string name="dressAvailable">Available</string>
+    <string name="dressNotAvailable">Not available</string>
+
+    <!--Article-->
+    <string name="articleAddCard">Add to shopping list</string>
+    <string name="articleAvailabilityTitle">Availability</string>
+    <string name="articleSizeTitle">Size</string>
+
+    <!--Profile-->
+    <string name="loyaltyPoints">Loyalty points :</string>
+    <string name="profileLogout">Log out</string>
+    <string name="loyaltySystemDescription">Every 100 loyalty points collected give you access to one 10% off coupon usable on any dress available in the store. Only one coupon can be used at a time.</string>
+
+    <!--Logout dialog-->
+    <string name="logoutDialogTitle">LOG OUT</string>
+    <string name="logoutDialogMessage">Would you like to log out?</string>
+    <string name="logoutDialogPositive">Yes</string>
+    <string name="logoutDialogNegative">No</string>
 
     <!--Errors-->
     <string name="emptyFieldError">Field cannot be empty</string>

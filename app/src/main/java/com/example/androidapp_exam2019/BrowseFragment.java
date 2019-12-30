@@ -1,13 +1,15 @@
 package com.example.androidapp_exam2019;
 
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +22,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.example.androidapp_exam2019.constants.AppSharedPreferences;
+import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Dress;
+import com.example.androidapp_exam2019.model.Favorite;
+import com.example.androidapp_exam2019.model.FavoriteDress;
+import com.example.androidapp_exam2019.model.post.FavoritePost;
 
 import java.util.ArrayList;
 
@@ -40,9 +49,11 @@ public class BrowseFragment extends Fragment {
 
     @BindView(R.id.rvDressId) public RecyclerView rvDress;
     @BindView(R.id.svDressId) public SearchView searchViewDress;
+    DressViewModel model;
     Retrofit retrofit;
     IDressApi dressApi;
     Call<ArrayList<Dress>> call;
+    Call<FavoriteDress> callIsFavorite;
 
     public BrowseFragment() {
         // Required empty public constructor
@@ -55,22 +66,12 @@ public class BrowseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_browse, container, false);
         ButterKnife.bind(this, view);
+
+        model = ViewModelProviders.of(getActivity()).get(DressViewModel.class);
+
         DressesAdapter adapter = new DressesAdapter();
         rvDress.setLayoutManager(new LinearLayoutManager(this.getContext()));
         rvDress.setAdapter(adapter);
-        searchViewDress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
 
@@ -79,7 +80,8 @@ public class BrowseFragment extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<Dress>> call, Response<ArrayList<Dress>> response) {
                 if (!response.isSuccessful()) {
-                    //Toast.makeText(getContext(), response.toString(), Toast.LENGTH_LONG).show();
+                    if (getContext() != null)
+                        Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
                     return;
                 }
                 adapter.setDresses(response.body());
@@ -87,7 +89,8 @@ public class BrowseFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Dress>> call, Throwable t) {
-                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                if (getContext() != null)
+                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -106,7 +109,7 @@ public class BrowseFragment extends Fragment {
         public ImageView dressesPicture;
         public TextView dressesName;
         public TextView dressesPrice;
-        public ImageButton dressesButtonFavorite;
+        public ToggleButton dressesButtonFavorite;
 
         public DressesViewHolder(@NonNull View itemView, IOnItemSelectedListener listener) {
             super(itemView);
@@ -124,6 +127,7 @@ public class BrowseFragment extends Fragment {
     private class DressesAdapter extends RecyclerView.Adapter<DressesViewHolder> implements Filterable {
         private ArrayList<Dress> dresses;
         private ArrayList<Dress> dressesFull;
+        public String favoriteId;
 
         public DressesAdapter() {
             dresses = new ArrayList<>();
@@ -134,9 +138,9 @@ public class BrowseFragment extends Fragment {
         public DressesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.browse_list_view, parent, false);
             DressesViewHolder vh = new DressesViewHolder(constraintLayout, position -> {
-                Intent intentGoDress = new Intent(getActivity().getApplicationContext(), ArticleActivity.class);
                 Dress touchedDress = dresses.get(position);
-                startActivity(intentGoDress);
+                model.setdressId(dresses.get(position).getId());
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerId, new ArticleFragment()).commit();
             });
             return vh;
         }
@@ -144,9 +148,63 @@ public class BrowseFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull DressesViewHolder holder, int position) {
             Dress d = dresses.get(position);
-            //TODO IMAGES
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(AppSharedPreferences.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+            callIsFavorite = dressApi.isFavorite(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""), d.getId());
+            callIsFavorite.enqueue(new Callback<FavoriteDress>() {
+                @Override
+                public void onResponse(Call<FavoriteDress> call, Response<FavoriteDress> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    favoriteId = response.body().getFavoriteId();
+                    holder.dressesButtonFavorite.setChecked(response.body().getFavorite());
+                }
+
+                @Override
+                public void onFailure(Call<FavoriteDress> call, Throwable t) {
+                    if (getContext() != null)
+                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            holder.dressesButtonFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (holder.dressesButtonFavorite.isChecked()) {
+                        Call<Favorite> callPostFavorite = dressApi.postFavorite(new FavoritePost(null, sharedPreferences.getString(AppSharedPreferences.USER_ID, ""), d.getId()));
+                        callPostFavorite.enqueue(new Callback<Favorite>() {
+                            @Override
+                            public void onResponse(Call<Favorite> call, Response<Favorite> response) {
+                                holder.dressesButtonFavorite.setChecked(!holder.dressesButtonFavorite.isChecked());
+                            }
+
+                            @Override
+                            public void onFailure(Call<Favorite> call, Throwable t) {
+                                if (getContext() != null)
+                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } else {
+                        Call<Void> callDeleteFavorite = dressApi.deleteFavorite(favoriteId);
+                        callDeleteFavorite.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                holder.dressesButtonFavorite.setChecked(!holder.dressesButtonFavorite.isChecked());
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                if (getContext() != null)
+                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            });
+            Glide.with(getView()).load(dresses.get(position).getUrlPicture()).into(holder.dressesPicture);
             holder.dressesName.setText(d.getDressName());
             holder.dressesPrice.setText(d.getPrice().toString() + " €");
+
         }
 
         @Override

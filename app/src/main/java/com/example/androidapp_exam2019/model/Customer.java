@@ -1,7 +1,7 @@
 package com.example.androidapp_exam2019.model;
 
 public class Customer {
-    private Integer id;
+    private String id;
     private String firstName;
     private String lastName;
     private String username;
@@ -11,7 +11,7 @@ public class Customer {
     private String customerAddress;
     private Integer loyaltyPoints;
 
-    public Customer(Integer id, String firstName, String lastName, String username, String customerPassword, String email, String phoneNumber, String customerAddress, Integer loyaltyPoints) {
+    public Customer(String id, String firstName, String lastName, String username, String customerPassword, String email, String phoneNumber, String customerAddress, Integer loyaltyPoints) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,7 +23,7 @@ public class Customer {
         this.loyaltyPoints = loyaltyPoints;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 

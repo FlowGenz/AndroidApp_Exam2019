@@ -14,8 +14,6 @@
         <activity android:name=".PartnerActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".ArticleActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".SellingSpotActivity" />
         <activity android:name=".MainScreenActivity"
             android:screenOrientation="portrait"/>

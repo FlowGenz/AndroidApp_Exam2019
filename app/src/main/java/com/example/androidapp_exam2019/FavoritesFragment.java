@@ -1,7 +1,7 @@
 package com.example.androidapp_exam2019;
 
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidapp_exam2019.model.Dress;
+import com.example.androidapp_exam2019.constants.AppSharedPreferences;
+import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Favorite;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -57,13 +60,15 @@ public class FavoritesFragment extends Fragment {
 
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(AppSharedPreferences.SHARED_PREFERENCES, MODE_PRIVATE);
 
-        call = dressApi.getAllFavorites();
+        call = dressApi.getFavoritesOfUser(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""));
         call.enqueue(new Callback<ArrayList<Favorite>>() {
             @Override
             public void onResponse(Call<ArrayList<Favorite>> call, Response<ArrayList<Favorite>> response) {
                 if (!response.isSuccessful()) {
-                    //Toast.makeText(getContext(), response.toString(), Toast.LENGTH_LONG).show();
+                    if (getContext() != null)
+                        Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
                     return;
                 }
                 favoritesAdapter.setFavorites(response.body());
@@ -71,7 +76,8 @@ public class FavoritesFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Favorite>> call, Throwable t) {
-                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                if (getContext() != null)
+                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -110,9 +116,9 @@ public class FavoritesFragment extends Fragment {
         public FavoritesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.favorites_list_view, parent, false);
             FavoritesViewHolder vh = new FavoritesViewHolder(constraintLayout, position -> {
-                Intent intentGoDress = new Intent(getActivity().getApplicationContext(), ArticleActivity.class);
+                //Intent intentGoDress = new Intent(getActivity().getApplicationContext(), ArticleActivity.class);
                 Favorite touchedFavorite = favorites.get(position);
-                startActivity(intentGoDress);
+                //startActivity(intentGoDress);
             });
             return vh;
         }

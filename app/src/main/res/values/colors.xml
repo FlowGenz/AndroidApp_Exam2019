@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#ededed</color>
     <color name="colorAccent">#CCB9BC</color>
     <color name="colorText">#212121</color>
+    <color name="notAvailable">#F44336</color>
+    <color name="available">#4CAF50</color>
 </resources>

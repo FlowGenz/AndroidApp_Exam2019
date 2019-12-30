@@ -1,6 +1,6 @@
 package com.example.androidapp_exam2019;
 
-import com.example.androidapp_exam2019.Constants.ApiConstants;
+import com.example.androidapp_exam2019.constants.ApiConstants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
