@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,7 +89,7 @@ public class BrowseFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Dress>> call, Throwable t) {
                 if (getContext() != null)
-                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -139,7 +138,7 @@ public class BrowseFragment extends Fragment {
             ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.browse_list_view, parent, false);
             DressesViewHolder vh = new DressesViewHolder(constraintLayout, position -> {
                 Dress touchedDress = dresses.get(position);
-                model.setdressId(dresses.get(position).getId());
+                model.setDressId(touchedDress.getId());
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerId, new ArticleFragment()).commit();
             });
             return vh;
@@ -171,17 +170,21 @@ public class BrowseFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (holder.dressesButtonFavorite.isChecked()) {
-                        Call<Favorite> callPostFavorite = dressApi.postFavorite(new FavoritePost(null, sharedPreferences.getString(AppSharedPreferences.USER_ID, ""), d.getId()));
-                        callPostFavorite.enqueue(new Callback<Favorite>() {
+                        Call<Void> callPostFavorite = dressApi.postFavorite(new FavoritePost(null, sharedPreferences.getString(AppSharedPreferences.USER_ID, ""), d.getId()));
+                        callPostFavorite.enqueue(new Callback<Void>() {
                             @Override
-                            public void onResponse(Call<Favorite> call, Response<Favorite> response) {
-                                holder.dressesButtonFavorite.setChecked(!holder.dressesButtonFavorite.isChecked());
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (!response.isSuccessful()) {
+                                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+                                holder.dressesButtonFavorite.setChecked(true);
                             }
 
                             @Override
-                            public void onFailure(Call<Favorite> call, Throwable t) {
+                            public void onFailure(Call<Void> call, Throwable t) {
                                 if (getContext() != null)
-                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                             }
                         });
                     } else {
@@ -189,19 +192,23 @@ public class BrowseFragment extends Fragment {
                         callDeleteFavorite.enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
-                                holder.dressesButtonFavorite.setChecked(!holder.dressesButtonFavorite.isChecked());
+                                if (!response.isSuccessful()) {
+                                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+                                holder.dressesButtonFavorite.setChecked(false);
                             }
 
                             @Override
                             public void onFailure(Call<Void> call, Throwable t) {
                                 if (getContext() != null)
-                                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                             }
                         });
                     }
                 }
             });
-            Glide.with(getView()).load(dresses.get(position).getUrlPicture()).into(holder.dressesPicture);
+            Glide.with(getView()).load(dresses.get(position).getUrlImage()).into(holder.dressesPicture);
             holder.dressesName.setText(d.getDressName());
             holder.dressesPrice.setText(d.getPrice().toString() + " €");
 

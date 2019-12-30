@@ -77,7 +77,7 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onFailure(Call<ArrayList<Favorite>> call, Throwable t) {
                 if (getContext() != null)
-                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
         });
 

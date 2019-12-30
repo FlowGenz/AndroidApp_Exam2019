@@ -4,6 +4,7 @@ import com.example.androidapp_exam2019.model.Customer;
 import com.example.androidapp_exam2019.model.Dress;
 import com.example.androidapp_exam2019.model.Favorite;
 import com.example.androidapp_exam2019.model.FavoriteDress;
+import com.example.androidapp_exam2019.model.LoginUser;
 import com.example.androidapp_exam2019.model.Order;
 import com.example.androidapp_exam2019.model.post.FavoritePost;
 
@@ -23,8 +24,11 @@ public interface IDressApi {
     @GET("customer/{username}")
     Call<Customer> getCustomer(@Path("username") String username);
 
+    @POST("jwt")
+    Call<JwtToken> getJwtToken(@Body LoginUser login);
+
     @POST("customer")
-    Call<Customer> postCustomer(@Body Customer customer);
+    Call<Void> postCustomer(@Body Customer customer);
 
     @PUT("customer/{username}")
     Call<Customer> putCustomer(@Path("username") String username, @Body Customer customer);
@@ -54,8 +58,12 @@ public interface IDressApi {
     Call<FavoriteDress> isFavorite(@Path("username") String username, @Path("dressId") String dressId);
 
     @POST("favorite")
-    Call<Favorite> postFavorite(@Body FavoritePost favorite);
+    Call<Void> postFavorite(@Body FavoritePost favorite);
 
     @DELETE("favorite/{id}")
     Call<Void> deleteFavorite(@Path("id") String id);
+
+    //***SENTENCE
+    @GET("sentence")
+    Call<String> getSentence();
 }

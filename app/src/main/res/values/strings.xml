@@ -63,7 +63,9 @@
 
     <!--Errors-->
     <string name="emptyFieldError">Field cannot be empty</string>
+    <string name="passwordInvalidFormat">Password format is incorrect</string>
     <string name="passwordMismatchError">Passwords do not match each other</string>
     <string name="usernameMinLengthError">Minimum length is 4 characters</string>
     <string name="emailInvalidFormatError">Please enter a valid e-mail</string>
+    <string name="networkConnectionError">Connection error, please check your connection and try again.</string>
 </resources>

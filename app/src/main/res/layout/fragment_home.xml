@@ -23,12 +23,11 @@
                 android:background="?android:attr/listDivider" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/homeSentenceOfTheDay"
                 android:layout_width="match_parent"
                 android:layout_height="112dp"
                 android:fontFamily="cursive"
                 android:gravity="center"
-                android:text="Sentence of the day"
                 app:autoSizeTextType="uniform" />
 
             <View

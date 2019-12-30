@@ -71,15 +71,15 @@ public class ProfileFragment extends Fragment {
                 } else {
                     profileFName.setText(response.body().getFirstName());
                     profileLName.setText(response.body().getLastName());
-                    profileLoyaltyPoints.setText(response.body().getLoyaltyPoints());
-                    profileCouponNumberId.setText((response.body().getLoyaltyPoints()%100));
+                    profileLoyaltyPoints.setText(String.valueOf(response.body().getLoyaltyPoints()));
+                    profileCouponNumberId.setText((String.valueOf(response.body().getLoyaltyPoints()%100)));
                 }
             }
 
             @Override
             public void onFailure(Call<Customer> call, Throwable t) {
                 if (getContext() != null)
-                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
         });
 

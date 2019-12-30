@@ -15,10 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.715"
+            app:layout_constraintHorizontal_bias="0.69"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.991" />
@@ -51,10 +50,9 @@
             android:id="@+id/articlePriceId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="XX.XX€"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.156"
+            app:layout_constraintHorizontal_bias="0.24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.924" />
@@ -101,14 +99,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:gravity="center"
-                        android:text="Name"
                         app:autoSizeTextType="uniform" />
 
                     <TextView
                         android:id="@+id/articleDescriptionId"
                         android:layout_width="match_parent"
                         android:layout_height="79dp"
-                        android:text="TextView" />
+                        android:gravity="center" />
 
                     <TextView
                         android:id="@+id/articleDateAvailabilityTitleId"
@@ -122,13 +119,13 @@
                         android:id="@+id/articleDateBeginId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:gravity="center" />
 
                     <TextView
                         android:id="@+id/articleDateEndId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:gravity="center" />
 
                     <TextView
                         android:id="@+id/articleSizeTitleId"
@@ -142,7 +139,7 @@
                         android:id="@+id/articleSizeId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:gravity="center" />
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>

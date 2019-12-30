@@ -10,11 +10,16 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.androidapp_exam2019.constants.ApiConstants;
+import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Customer;
 import com.google.android.material.textfield.TextInputLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,6 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.registerAddress) public TextInputLayout registerAddress;
     @BindView(R.id.registerPhoneNumber) public TextInputLayout registerPhoneNumber;
     @BindView(R.id.registerConfirmButton) public Button registerConfirmButton;
+    private static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{8,20}$";
+    Retrofit retrofit;
+    IDressApi dressApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         ButterKnife.bind(this);
+        retrofit = RetrofitSingleton.getClient();
+        dressApi = retrofit.create(IDressApi.class);
 
         registerConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +62,30 @@ public class RegisterActivity extends AppCompatActivity {
                         registerAddress.getEditText().getText().toString(),
                         0
                 );
-                ApiConstants.username = registerUsername.getEditText().getText().toString();
-                ApiConstants.password = registerPassword.getEditText().getText().toString();
-                Toast.makeText(RegisterActivity.this, getString(R.string.registrationSuccesfull), Toast.LENGTH_SHORT).show();
-                Intent intentGoConnectionScreen = new Intent(RegisterActivity.this, ConnectionActivity.class);
-                startActivity(intentGoConnectionScreen);
+
+                Call<Void> call = dressApi.postCustomer(customerCreated);
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (!response.isSuccessful()) {
+                            if (getApplicationContext() != null)
+                                Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        ApiConstants.username = registerUsername.getEditText().getText().toString();
+                        ApiConstants.password = registerPassword.getEditText().getText().toString();
+                        Toast.makeText(RegisterActivity.this, getString(R.string.registrationSuccesfull), Toast.LENGTH_SHORT).show();
+                        Intent intentGoConnectionScreen = new Intent(RegisterActivity.this, ConnectionActivity.class);
+                        startActivity(intentGoConnectionScreen);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        if (getApplicationContext() != null)
+                            Toast.makeText(getApplicationContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
@@ -81,6 +110,9 @@ public class RegisterActivity extends AppCompatActivity {
         String passwordConfirmationInput = registerPasswordConfirmation.getEditText().getText().toString().trim();
         if (passwordInput.isEmpty()) {
             registerPassword.setError(getString(R.string.emptyFieldError));
+            return false;
+        } else if (!passwordInput.matches(REGEX_PASSWORD)) {
+            registerPassword.setError(getString(R.string.passwordInvalidFormat));
             return false;
         } else if (!passwordInput.equals(passwordConfirmationInput)) {
             registerPassword.setError(getString(R.string.passwordMismatchError));

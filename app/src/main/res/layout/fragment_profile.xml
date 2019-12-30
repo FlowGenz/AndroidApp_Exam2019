@@ -27,7 +27,6 @@
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:gravity="center"
-            android:text="Nom"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +40,6 @@
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:gravity="center"
-            android:text="Prenom"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,16 +75,16 @@
 
         <TextView
             android:id="@+id/profileLoyaltyPointsid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:gravity="center"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.72"
+            app:layout_constraintHorizontal_bias="0.626"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.59000003" />
+            app:layout_constraintVertical_bias="0.598" />
 
         <TextView
             android:id="@+id/textView9"
@@ -105,14 +103,15 @@
 
         <TextView
             android:id="@+id/profileCouponNumberId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.414"
+            app:layout_constraintHorizontal_bias="0.37"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.727" />
+            app:layout_constraintVertical_bias="0.736" />
 
         <ImageView
             android:id="@+id/imageView5"

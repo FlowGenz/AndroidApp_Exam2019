@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,7 +72,6 @@ public class ArticleFragment extends Fragment {
         model = ViewModelProviders.of(getActivity()).get(DressViewModel.class);
         String dressId = model.getDressId().getValue();
 
-        //TODO CALL API
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(AppSharedPreferences.SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -99,19 +97,21 @@ public class ArticleFragment extends Fragment {
                 articlePrice.setText(response.body().getPrice().toString() + " €");
                 articleDescription.setText(response.body().getDescription());
                 articleSize.setText((response.body().getSize()));
-                articleDateBegin.setText(response.body().getDateBeginAvailable().toString());
-                articleDateEnd.setText(response.body().getDateEndAvailable().toString());
-                Glide.with(view).load(response.body().getUrlPicture()).into(articlePicture);
+                if (response.body().getDateBeginAvailable() != null)
+                    articleDateBegin.setText(response.body().getDateBeginAvailable().toString());
+                if (response.body().getDateEndAvailable() != null)
+                    articleDateEnd.setText(response.body().getDateEndAvailable().toString());
+                Glide.with(view).load(response.body().getUrlImage()).into(articlePicture);
             }
 
             @Override
             public void onFailure(Call<Dress> call, Throwable t) {
                 if (getContext() != null)
-                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
         });
 
-        Call<FavoriteDress> callIsFavorite = dressApi.isFavorite(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""), dress.getId());
+        Call<FavoriteDress> callIsFavorite = dressApi.isFavorite(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""), dressId);
         callIsFavorite.enqueue(new Callback<FavoriteDress>() {
             @Override
             public void onResponse(Call<FavoriteDress> call, Response<FavoriteDress> response) {
@@ -127,7 +127,7 @@ public class ArticleFragment extends Fragment {
             @Override
             public void onFailure(Call<FavoriteDress> call, Throwable t) {
                 if (getContext() != null)
-                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -135,17 +135,21 @@ public class ArticleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (articleDressButtonFavorite.isChecked()) {
-                    Call<Favorite> callPostFavorite = dressApi.postFavorite(new FavoritePost(null, sharedPreferences.getString(AppSharedPreferences.USER_ID, ""), dress.getId()));
-                    callPostFavorite.enqueue(new Callback<Favorite>() {
+                    Call<Void> callPostFavorite = dressApi.postFavorite(new FavoritePost(null, sharedPreferences.getString(AppSharedPreferences.USER_ID, ""), dress.getId()));
+                    callPostFavorite.enqueue(new Callback<Void>() {
                         @Override
-                        public void onResponse(Call<Favorite> call, Response<Favorite> response) {
-                            articleDressButtonFavorite.setChecked(!articleDressButtonFavorite.isChecked());
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            articleDressButtonFavorite.setChecked(true);
                         }
 
                         @Override
-                        public void onFailure(Call<Favorite> call, Throwable t) {
+                        public void onFailure(Call<Void> call, Throwable t) {
                             if (getContext() != null)
-                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                         }
                     });
                 } else {
@@ -158,13 +162,13 @@ public class ArticleFragment extends Fragment {
                                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            articleDressButtonFavorite.setChecked(!articleDressButtonFavorite.isChecked());
+                            articleDressButtonFavorite.setChecked(false);
                         }
 
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
                             if (getContext() != null)
-                                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -192,7 +196,7 @@ public class ArticleFragment extends Fragment {
                                 dress.getPrice(),
                                 dress.getDressName(),
                                 dress.isAvailable(),
-                                dress.getUrlPicture(),
+                                dress.getUrlImage(),
                                 order.getId(),
                                 dress.getId())
                         );
@@ -201,7 +205,7 @@ public class ArticleFragment extends Fragment {
                     @Override
                     public void onFailure(Call<Order> call, Throwable t) {
                         if (getContext() != null)
-                            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -220,7 +224,7 @@ public class ArticleFragment extends Fragment {
                     @Override
                     public void onFailure(Call<Order> call, Throwable t) {
                         if (getContext() != null)
-                            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                     }
                 });
             }

@@ -1,8 +1,8 @@
 package com.example.androidapp_exam2019.model;
 
 public class FavoriteDress {
-    private Boolean isFavorite;
     private String favoriteId;
+    private Boolean isFavorite;
 
     public FavoriteDress(Boolean isFavorite, String favoriteId) {
         this.isFavorite = isFavorite;

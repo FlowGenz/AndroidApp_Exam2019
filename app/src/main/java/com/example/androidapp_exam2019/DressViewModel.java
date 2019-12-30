@@ -15,7 +15,10 @@ public class DressViewModel extends ViewModel {
         return dressId;
     }
 
-    public void setdressId(String id) {
+    public void setDressId(String id) {
+        if (dressId == null) {
+            dressId = new MutableLiveData<>();
+        }
         dressId.setValue(id);
     }
 }

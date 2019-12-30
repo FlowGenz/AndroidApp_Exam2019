@@ -18,8 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
-import com.example.androidapp_exam2019.model.Dress;
 import com.example.androidapp_exam2019.model.Order;
 import com.example.androidapp_exam2019.model.OrderLine;
 
@@ -85,7 +85,7 @@ public class CardFragment extends Fragment {
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
                 if (getContext() != null)
-                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -107,7 +107,7 @@ public class CardFragment extends Fragment {
                     @Override
                     public void onFailure(Call<Order> call, Throwable t) {
                         if (getContext() != null)
-                            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -146,9 +146,8 @@ public class CardFragment extends Fragment {
             ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.card_list_view, parent, false);
             CardViewHolder vh = new CardViewHolder(constraintLayout, position -> {
                 OrderLine touchedOrderLine = orderLines.get(position);
-                model.setdressId(orderLines.get(position).getDressId());
+                model.setDressId(orderLines.get(position).getDressId());
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerId, new ArticleFragment()).commit();
-                //startActivity(intentGoDress);
             });
             return vh;
         }
@@ -156,7 +155,7 @@ public class CardFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
             OrderLine ol = orderLines.get(position);
-            //TODO IMAGES
+            Glide.with(getView()).load(ol.getDressUrlImage()).into(holder.dressesPicture);
             holder.dressesName.setText(ol.getDressName());
             holder.dressesPrice.setText(ol.getFinalPrice().toString() + " €");
             if (ol.isDressAvailable()) {

@@ -5,20 +5,20 @@ import java.util.Date;
 
 public class Dress {
     private String id;
-    private String urlPicture;
     private String dressName;
     private String description;
     private BigDecimal price;
     private String size;
-    private boolean available;
+    private Boolean available;
     private Date dateBeginAvailable;
     private Date dateEndAvailable;
     private String partnerId;
     private String partnerName;
+    private String urlImage;
 
-    public Dress(String id, String urlPicture, String dressName, String description, BigDecimal price, String size, boolean available, Date dateBeginAvailable, Date dateEndAvailable, String partnerId, String partnerName) {
+    public Dress(String id, String urlImage, String dressName, String description, BigDecimal price, String size, Boolean available, Date dateBeginAvailable, Date dateEndAvailable, String partnerId, String partnerName) {
         this.id = id;
-        this.urlPicture = urlPicture;
+        this.urlImage = urlImage;
         this.dressName = dressName;
         this.description = description;
         this.price = price;
@@ -34,8 +34,8 @@ public class Dress {
         return id;
     }
 
-    public String getUrlPicture() {
-        return urlPicture;
+    public String getUrlImage() {
+        return urlImage;
     }
 
     public String getDressName() {
@@ -54,7 +54,7 @@ public class Dress {
         return size;
     }
 
-    public boolean isAvailable() {
+    public Boolean isAvailable() {
         return available;
     }
 

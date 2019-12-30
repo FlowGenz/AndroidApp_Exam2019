@@ -64,7 +64,9 @@
 
     <!--Errors-->
     <string name="emptyFieldError">Ce champ ne peut pas être vide</string>
+    <string name="passwordInvalidFormat">Format du mot de passe incorrect</string>
     <string name="passwordMismatchError">Les mots de passe ne correspondent pas entre eux</string>
     <string name="usernameMinLengthError">La taille minimum est de 4 caractères</string>
     <string name="emailInvalidFormatError">Veuillez entrer une adresse e-mail correcte</string>
+    <string name="networkConnectionError">Erreur de connexion, veuillez vérifier votre connexion et recommencer</string>
 </resources>
