@@ -77,7 +77,7 @@ public class ArticleFragment extends Fragment {
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(AppSharedPreferences.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        Call<Dress> call = dressApi.getDress(dressId);
+        /*Call<Dress> call = dressApi.getDress(dressId);
 
         call.enqueue(new Callback<Dress>() {
             @Override
@@ -111,7 +111,7 @@ public class ArticleFragment extends Fragment {
                 if (getContext() != null)
                     Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         Call<FavoriteDress> callIsFavorite = dressApi.isFavorite(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""), dressId);
         callIsFavorite.enqueue(new Callback<FavoriteDress>() {

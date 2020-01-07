@@ -77,7 +77,7 @@ public class BrowseFragment extends Fragment {
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
 
-        call = dressApi.getAllDresses();
+        /*call = dressApi.getAllDresses();
         call.enqueue(new Callback<ArrayList<Dress>>() {
             @Override
             public void onResponse(Call<ArrayList<Dress>> call, Response<ArrayList<Dress>> response) {
@@ -94,7 +94,7 @@ public class BrowseFragment extends Fragment {
                 if (getContext() != null)
                     Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         searchViewDress.setIconifiedByDefault(false);
         return view;

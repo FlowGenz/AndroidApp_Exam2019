@@ -20,12 +20,13 @@ import retrofit2.http.Path;
 
 public interface IDressApi {
 
-    //***CUSTOMER
-    @GET("customer/{username}")
-    Call<Customer> getCustomer(@Path("username") String username);
-
+    //JwT
     @POST("jwt")
     Call<Jwt> getJwtToken(@Body LoginUser login);
+
+    //***CUSTOMER
+    /*@GET("customer/{username}")
+    Call<Customer> getCustomer(@Path("username") String username);
 
     @POST("customer")
     Call<Void> postCustomer(@Body Customer customer);
@@ -38,7 +39,7 @@ public interface IDressApi {
     Call<ArrayList<Dress>> getAllDresses();
 
     @GET("dress/{id}")
-    Call<Dress> getDress(@Path("id") String id);
+    Call<Dress> getDress(@Path("id") String id);*/
 
     //***ORDER
     @GET("dressOrder/{username}")

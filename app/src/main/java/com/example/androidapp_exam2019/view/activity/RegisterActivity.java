@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                         0
                 );
 
-                Call<Void> call = dressApi.postCustomer(customerCreated);
+                /*Call<Void> call = dressApi.postCustomer(customerCreated);
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -74,8 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
                             return;
                         }
 
-                        //ApiConstants.username = registerUsername.getEditText().getText().toString();
-                        //ApiConstants.password = registerPassword.getEditText().getText().toString();
                         Toast.makeText(RegisterActivity.this, getString(R.string.registrationSuccesfull), Toast.LENGTH_SHORT).show();
                         Intent intentGoConnectionScreen = new Intent(RegisterActivity.this, ConnectionActivity.class);
                         startActivity(intentGoConnectionScreen);
@@ -86,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (getApplicationContext() != null)
                             Toast.makeText(getApplicationContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
             }
         });
 

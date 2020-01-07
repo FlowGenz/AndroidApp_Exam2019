@@ -77,7 +77,7 @@ public class ConnectionActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(AppSharedPreferences.ACCESS_TOKEN, response.body().getAccess_token());
 
-                            Call<Customer> callGetId = dressApi.getCustomer(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""));
+                            /*Call<Customer> callGetId = dressApi.getCustomer(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""));
                             callGetId.enqueue(new Callback<Customer>() {
                                 @Override
                                 public void onResponse(Call<Customer> call, Response<Customer> response) {
@@ -97,7 +97,7 @@ public class ConnectionActivity extends AppCompatActivity {
                                     if (getApplicationContext() != null)
                                         Toast.makeText(getApplicationContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                                 }
-                            });
+                            });*/
                         }
 
                         @Override

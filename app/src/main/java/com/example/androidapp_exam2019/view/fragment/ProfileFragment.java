@@ -60,8 +60,8 @@ public class ProfileFragment extends Fragment {
 
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
-        Call<Customer> call = dressApi.getCustomer(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""));
 
+        /*Call<Customer> call = dressApi.getCustomer(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""));
         call.enqueue(new Callback<Customer>() {
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment {
                 if (getContext() != null)
                     Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         profileLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
