@@ -30,6 +30,10 @@ public class Dress {
         this.partnerName = partnerName;
     }
 
+    public Dress() {
+
+    }
+
     public String getId() {
         return id;
     }

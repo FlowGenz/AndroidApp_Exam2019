@@ -24,6 +24,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.example.androidapp_exam2019.dataAccess.DressDAO;
+import com.example.androidapp_exam2019.dataAccess.DressDataAccess;
 import com.example.androidapp_exam2019.viewModel.DressViewModel;
 import com.example.androidapp_exam2019.model.IOnItemSelectedListener;
 import com.example.androidapp_exam2019.R;
@@ -52,6 +54,7 @@ public class BrowseFragment extends Fragment {
     @BindView(R.id.rvDressId) public RecyclerView rvDress;
     @BindView(R.id.svDressId) public SearchView searchViewDress;
     private DressViewModel model;
+    private DressDataAccess dataAccess;
     private Retrofit retrofit;
     private IDressApi dressApi;
     private Call<ArrayList<Dress>> call;
@@ -68,6 +71,7 @@ public class BrowseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_browse, container, false);
         ButterKnife.bind(this, view);
+        dataAccess = new DressDAO(getActivity());
 
         model = ViewModelProviders.of(getActivity()).get(DressViewModel.class);
 
@@ -77,24 +81,7 @@ public class BrowseFragment extends Fragment {
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
 
-        /*call = dressApi.getAllDresses();
-        call.enqueue(new Callback<ArrayList<Dress>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Dress>> call, Response<ArrayList<Dress>> response) {
-                if (!response.isSuccessful()) {
-                    if (getContext() != null)
-                        Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                adapter.setDresses(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Dress>> call, Throwable t) {
-                if (getContext() != null)
-                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
-            }
-        });*/
+        adapter.setDresses(dataAccess.getAllDresses());
 
         searchViewDress.setIconifiedByDefault(false);
         return view;

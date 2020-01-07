@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.CustomerDAO;
+import com.example.androidapp_exam2019.dataAccess.CustomerDataAccess;
 import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Customer;
@@ -34,8 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.registerPhoneNumber) public TextInputLayout registerPhoneNumber;
     @BindView(R.id.registerConfirmButton) public Button registerConfirmButton;
     private static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{8,20}$";
-    private Retrofit retrofit;
-    private IDressApi dressApi;
+    private CustomerDataAccess dataAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         ButterKnife.bind(this);
-        retrofit = RetrofitSingleton.getClient();
-        dressApi = retrofit.create(IDressApi.class);
+        dataAccess = new CustomerDAO(this);
 
         registerConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,28 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                         registerAddress.getEditText().getText().toString(),
                         0
                 );
-
-                /*Call<Void> call = dressApi.postCustomer(customerCreated);
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (!response.isSuccessful()) {
-                            if (getApplicationContext() != null)
-                                Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        Toast.makeText(RegisterActivity.this, getString(R.string.registrationSuccesfull), Toast.LENGTH_SHORT).show();
-                        Intent intentGoConnectionScreen = new Intent(RegisterActivity.this, ConnectionActivity.class);
-                        startActivity(intentGoConnectionScreen);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        if (getApplicationContext() != null)
-                            Toast.makeText(getApplicationContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
-                    }
-                });*/
+                dataAccess.registerUser(customerCreated);
             }
         });
 

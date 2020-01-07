@@ -1,12 +1,13 @@
 package com.example.androidapp_exam2019.dataAccess;
 
+import android.content.SharedPreferences;
+
 import com.example.androidapp_exam2019.model.Customer;
 
 public interface CustomerDataAccess {
 
-    Customer getCustomer(String username);
+	void userLogin(String username, SharedPreferences.Editor editor);
 
-    void postCustomer(Customer customer);
+    void registerUser(Customer customer);
 
-    Customer putCustomer(String username, Customer customer);
 }

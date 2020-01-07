@@ -18,6 +18,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.example.androidapp_exam2019.dataAccess.DressDAO;
+import com.example.androidapp_exam2019.dataAccess.DressDataAccess;
 import com.example.androidapp_exam2019.viewModel.DressViewModel;
 import com.example.androidapp_exam2019.R;
 import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
@@ -55,6 +57,7 @@ public class ArticleFragment extends Fragment {
     private Retrofit retrofit;
     private IDressApi dressApi;
     private DressViewModel model;
+    private DressDataAccess dataAccess;
     private Dress dress;
     private String favoriteId;
 
@@ -70,6 +73,7 @@ public class ArticleFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
         ButterKnife.bind(this, view);
+        dataAccess = new DressDAO(getActivity());
 
         model = ViewModelProviders.of(getActivity()).get(DressViewModel.class);
         String dressId = model.getDressId().getValue();
@@ -77,41 +81,9 @@ public class ArticleFragment extends Fragment {
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(AppSharedPreferences.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        /*Call<Dress> call = dressApi.getDress(dressId);
 
-        call.enqueue(new Callback<Dress>() {
-            @Override
-            public void onResponse(Call<Dress> call, Response<Dress> response) {
-                if (!response.isSuccessful()) {
-                    if (getContext() != null)
-                        Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
-                    return;
-                }
-                dress = response.body();
-                articleName.setText(response.body().getDressName());
-                if (response.body().isAvailable()) {
-                    articleAvailability.setText(getString(R.string.dressAvailable));
-                    articleAvailability.setTextColor(getResources().getColor(R.color.available));
-                } else {
-                    articleAvailability.setText(getString(R.string.dressNotAvailable));
-                    articleAvailability.setTextColor(getResources().getColor(R.color.notAvailable));
-                }
-                articlePrice.setText(response.body().getPrice().toString() + " €");
-                articleDescription.setText(response.body().getDescription());
-                articleSize.setText((response.body().getSize()));
-                if (response.body().getDateBeginAvailable() != null)
-                    articleDateBegin.setText(response.body().getDateBeginAvailable().toString());
-                if (response.body().getDateEndAvailable() != null)
-                    articleDateEnd.setText(response.body().getDateEndAvailable().toString());
-                Glide.with(view).load(response.body().getUrlImage()).into(articlePicture);
-            }
-
-            @Override
-            public void onFailure(Call<Dress> call, Throwable t) {
-                if (getContext() != null)
-                    Toast.makeText(getContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
-            }
-        });*/
+        dress = dataAccess.getDress(dressId);
+        setViewElements(dress, view);
 
         Call<FavoriteDress> callIsFavorite = dressApi.isFavorite(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""), dressId);
         callIsFavorite.enqueue(new Callback<FavoriteDress>() {
@@ -233,6 +205,26 @@ public class ArticleFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void setViewElements(Dress dress, View view) {
+        articleName.setText(dress.getDressName());
+        if (dress.isAvailable()) {
+            articleAvailability.setText(getString(R.string.dressAvailable));
+            articleAvailability.setTextColor(getResources().getColor(R.color.available));
+        } else {
+            articleAvailability.setText(getString(R.string.dressNotAvailable));
+            articleAvailability.setTextColor(getResources().getColor(R.color.notAvailable));
+        }
+        articlePrice.setText(dress.getPrice().toString() + " €");
+        articleDescription.setText(dress.getDescription());
+        articleSize.setText((dress.getSize()));
+        if (dress.getDateBeginAvailable() != null)
+            articleDateBegin.setText(dress.getDateBeginAvailable().toString());
+        if (dress.getDateEndAvailable() != null)
+            articleDateEnd.setText(dress.getDateEndAvailable().toString());
+        Glide.with(view).load(dress.getUrlImage()).into(articlePicture);
+
     }
 
 }

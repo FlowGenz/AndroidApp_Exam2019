@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.CustomerDAO;
+import com.example.androidapp_exam2019.dataAccess.CustomerDataAccess;
 import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.constants.AppSharedPreferences;
 import com.example.androidapp_exam2019.dataAccess.ConnectionStateProvider;
@@ -35,7 +37,7 @@ public class ConnectionActivity extends AppCompatActivity {
     @BindView(R.id.connectionPasswordId) public EditText connectionPassword;
     @BindView(R.id.connectionLoginId) public Button connectionLogin;
     @BindView(R.id.connectionSignInId) public TextView connectionSignIn;
-
+    private CustomerDataAccess dataAccess;
     private Retrofit retrofit;
     private IDressApi dressApi;
 
@@ -50,6 +52,7 @@ public class ConnectionActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         retrofit = RetrofitSingleton.getClient();
         dressApi = retrofit.create(IDressApi.class);
+        dataAccess = new CustomerDAO(this);
 
         if (!ConnectionStateProvider.isOnline(getApplicationContext())) {
             Toast.makeText(this, getString(R.string.networkConnectionError), Toast.LENGTH_SHORT).show();
@@ -76,28 +79,7 @@ public class ConnectionActivity extends AppCompatActivity {
                             }
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(AppSharedPreferences.ACCESS_TOKEN, response.body().getAccess_token());
-
-                            /*Call<Customer> callGetId = dressApi.getCustomer(sharedPreferences.getString(AppSharedPreferences.USERNAME, ""));
-                            callGetId.enqueue(new Callback<Customer>() {
-                                @Override
-                                public void onResponse(Call<Customer> call, Response<Customer> response) {
-                                    if (!response.isSuccessful()) {
-                                        if (getApplicationContext() != null)
-                                            Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
-                                        return;
-                                    }
-                                    editor.putString(AppSharedPreferences.USER_ID, response.body().getId());
-                                    editor.apply();
-                                    Intent intentGoPartner = new Intent(ConnectionActivity.this, PartnerActivity.class);
-                                    startActivity(intentGoPartner);
-                                }
-
-                                @Override
-                                public void onFailure(Call<Customer> call, Throwable t) {
-                                    if (getApplicationContext() != null)
-                                        Toast.makeText(getApplicationContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
-                                }
-                            });*/
+                            dataAccess.userLogin(username, editor);
                         }
 
                         @Override

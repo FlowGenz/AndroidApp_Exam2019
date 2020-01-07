@@ -23,6 +23,10 @@ public class Customer {
         this.loyaltyPoints = loyaltyPoints;
     }
 
+    public Customer() {
+
+    }
+
     public String getId() {
         return id;
     }
