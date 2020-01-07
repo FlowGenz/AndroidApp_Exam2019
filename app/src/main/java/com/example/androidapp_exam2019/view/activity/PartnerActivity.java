@@ -1,20 +1,20 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.androidapp_exam2019.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PartnerActivity extends AppCompatActivity {
 
-    @BindView(R.id.tvPartnerAmiraLebsatteId)
-    TextView partner;
+    @BindView(R.id.tvPartnerAmiraLebsatteId) public TextView partner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

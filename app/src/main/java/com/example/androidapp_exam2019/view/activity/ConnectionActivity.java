@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.constants.AppSharedPreferences;
 import com.example.androidapp_exam2019.dataAccess.ConnectionStateProvider;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
-import com.example.androidapp_exam2019.dataAccess.JwtToken;
+import com.example.androidapp_exam2019.dataAccess.Jwt;
 import com.example.androidapp_exam2019.model.Customer;
 import com.example.androidapp_exam2019.model.LoginUser;
 
@@ -28,13 +30,14 @@ import retrofit2.Retrofit;
 
 public class ConnectionActivity extends AppCompatActivity {
 
-    @BindView(R.id.connectionLogoId) ImageView connectionLogo;
+    @BindView(R.id.connectionLogoId) public ImageView connectionLogo;
     @BindView(R.id.connectionUsernameId) public EditText connectionUsername;
     @BindView(R.id.connectionPasswordId) public EditText connectionPassword;
     @BindView(R.id.connectionLoginId) public Button connectionLogin;
     @BindView(R.id.connectionSignInId) public TextView connectionSignIn;
-    Retrofit retrofit;
-    IDressApi dressApi;
+
+    private Retrofit retrofit;
+    private IDressApi dressApi;
 
     private String username;
     private String password;
@@ -62,10 +65,10 @@ public class ConnectionActivity extends AppCompatActivity {
                     String password = sharedPreferences.getString(AppSharedPreferences.PASSWORD, "");
 
                     LoginUser login = new LoginUser(username, password);
-                    Call<JwtToken> call = dressApi.getJwtToken(login);
-                    call.enqueue(new Callback<JwtToken>() {
+                    Call<Jwt> call = dressApi.getJwtToken(login);
+                    call.enqueue(new Callback<Jwt>() {
                         @Override
-                        public void onResponse(Call<JwtToken> call, Response<JwtToken> response) {
+                        public void onResponse(Call<Jwt> call, Response<Jwt> response) {
                             if (!response.isSuccessful()) {
                                 if (getApplicationContext() != null)
                                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
@@ -98,7 +101,7 @@ public class ConnectionActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<JwtToken> call, Throwable t) {
+                        public void onFailure(Call<Jwt> call, Throwable t) {
                             if (getApplicationContext() != null)
                                 Toast.makeText(getApplicationContext(), getString(R.string.networkConnectionError), Toast.LENGTH_LONG).show();
                         }

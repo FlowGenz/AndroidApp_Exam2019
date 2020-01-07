@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.fragment;
 
 
 import android.content.Context;
@@ -18,10 +18,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.example.androidapp_exam2019.viewModel.DressViewModel;
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.constants.AppSharedPreferences;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Dress;
-import com.example.androidapp_exam2019.model.Favorite;
 import com.example.androidapp_exam2019.model.FavoriteDress;
 import com.example.androidapp_exam2019.model.Order;
 import com.example.androidapp_exam2019.model.OrderLine;
@@ -50,11 +52,11 @@ public class ArticleFragment extends Fragment {
     @BindView(R.id.articleDescriptionId) public TextView articleDescription;
     @BindView(R.id.articleSizeId) public TextView articleSize;
     @BindView(R.id.articlePictureId) public ImageView articlePicture;
-    Retrofit retrofit;
-    IDressApi dressApi;
-    DressViewModel model;
-    Dress dress;
-    String favoriteId;
+    private Retrofit retrofit;
+    private IDressApi dressApi;
+    private DressViewModel model;
+    private Dress dress;
+    private String favoriteId;
 
 
     public ArticleFragment() {

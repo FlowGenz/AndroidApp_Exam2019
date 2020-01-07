@@ -25,7 +25,7 @@ public interface IDressApi {
     Call<Customer> getCustomer(@Path("username") String username);
 
     @POST("jwt")
-    Call<JwtToken> getJwtToken(@Body LoginUser login);
+    Call<Jwt> getJwtToken(@Body LoginUser login);
 
     @POST("customer")
     Call<Void> postCustomer(@Body Customer customer);

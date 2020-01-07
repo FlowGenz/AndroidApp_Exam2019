@@ -1,7 +1,6 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.fragment;
 
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -14,9 +13,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.constants.AppSharedPreferences;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
-import com.example.androidapp_exam2019.dialogs.LogOutDialog;
+import com.example.androidapp_exam2019.view.dialogs.LogOutDialog;
 import com.example.androidapp_exam2019.model.Customer;
 
 import butterknife.BindView;
@@ -39,8 +40,8 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profileLoyaltyPointsid) public TextView profileLoyaltyPoints;
     @BindView(R.id.profileCouponNumberId) public TextView profileCouponNumberId;
     @BindView(R.id.profileLogoutButtonId) public ImageButton profileLogoutButton;
-    Retrofit retrofit;
-    IDressApi dressApi;
+    private Retrofit retrofit;
+    private IDressApi dressApi;
 
 
 

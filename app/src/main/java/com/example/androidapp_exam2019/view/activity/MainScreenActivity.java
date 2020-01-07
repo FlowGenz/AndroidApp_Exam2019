@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,13 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.androidapp_exam2019.viewModel.DressViewModel;
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.view.fragment.BrowseFragment;
+import com.example.androidapp_exam2019.view.fragment.CardFragment;
+import com.example.androidapp_exam2019.view.fragment.FavoritesFragment;
+import com.example.androidapp_exam2019.view.fragment.HomeFragment;
+import com.example.androidapp_exam2019.view.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -16,7 +23,7 @@ import butterknife.ButterKnife;
 public class MainScreenActivity extends AppCompatActivity {
 
     @BindView(R.id.mainScreenBottomNavigationViewId) public BottomNavigationView mainScreenBottomNavigationView;
-    DressViewModel model;
+    private DressViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

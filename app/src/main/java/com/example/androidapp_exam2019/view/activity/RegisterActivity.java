@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.androidapp_exam2019.constants.ApiConstants;
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Customer;
 import com.google.android.material.textfield.TextInputLayout;
@@ -33,8 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R.id.registerPhoneNumber) public TextInputLayout registerPhoneNumber;
     @BindView(R.id.registerConfirmButton) public Button registerConfirmButton;
     private static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{8,20}$";
-    Retrofit retrofit;
-    IDressApi dressApi;
+    private Retrofit retrofit;
+    private IDressApi dressApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
                             return;
                         }
 
-                        ApiConstants.username = registerUsername.getEditText().getText().toString();
-                        ApiConstants.password = registerPassword.getEditText().getText().toString();
+                        //ApiConstants.username = registerUsername.getEditText().getText().toString();
+                        //ApiConstants.password = registerPassword.getEditText().getText().toString();
                         Toast.makeText(RegisterActivity.this, getString(R.string.registrationSuccesfull), Toast.LENGTH_SHORT).show();
                         Intent intentGoConnectionScreen = new Intent(RegisterActivity.this, ConnectionActivity.class);
                         startActivity(intentGoConnectionScreen);

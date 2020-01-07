@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.dataAccess.retrofit;
 
 import com.example.androidapp_exam2019.constants.ApiConstants;
 import com.google.gson.Gson;

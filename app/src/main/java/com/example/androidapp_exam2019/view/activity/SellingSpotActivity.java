@@ -1,8 +1,10 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.androidapp_exam2019.R;
 
 public class SellingSpotActivity extends AppCompatActivity {
 

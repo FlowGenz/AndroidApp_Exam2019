@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019.dialogs;
+package com.example.androidapp_exam2019.view.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.androidapp_exam2019.ConnectionActivity;
+import com.example.androidapp_exam2019.view.activity.ConnectionActivity;
 import com.example.androidapp_exam2019.R;
 import com.example.androidapp_exam2019.constants.AppSharedPreferences;
 

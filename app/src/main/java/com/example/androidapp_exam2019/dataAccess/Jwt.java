@@ -1,15 +1,15 @@
 package com.example.androidapp_exam2019.dataAccess;
 
-public class JwtToken {
+public class Jwt {
     private String access_token;
     private int expires_in;
 
-    public JwtToken(String access_token, int expires_in) {
+    public Jwt(String access_token, int expires_in) {
         this.access_token = access_token;
         this.expires_in = expires_in;
     }
 
-    public JwtToken() {
+    public Jwt() {
     }
 
     public String getAccess_token() {

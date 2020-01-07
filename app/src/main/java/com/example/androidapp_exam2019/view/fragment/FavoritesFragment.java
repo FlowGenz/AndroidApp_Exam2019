@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.fragment;
 
 
 import android.content.SharedPreferences;
@@ -17,6 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidapp_exam2019.model.IOnItemSelectedListener;
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.constants.AppSharedPreferences;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Favorite;
@@ -39,9 +42,9 @@ import static android.content.Context.MODE_PRIVATE;
 public class FavoritesFragment extends Fragment {
 
     @BindView(R.id.rvFavoritesId) public RecyclerView favRv;
-    Retrofit retrofit;
-    IDressApi dressApi;
-    Call<ArrayList<Favorite>> call;
+    private Retrofit retrofit;
+    private IDressApi dressApi;
+    private Call<ArrayList<Favorite>> call;
 
 
     public FavoritesFragment() {

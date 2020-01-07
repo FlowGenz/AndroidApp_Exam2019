@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.fragment;
 
 
 import android.os.Bundle;
@@ -19,6 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.androidapp_exam2019.viewModel.DressViewModel;
+import com.example.androidapp_exam2019.model.IOnItemSelectedListener;
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Order;
 import com.example.androidapp_exam2019.model.OrderLine;
@@ -42,11 +46,11 @@ public class CardFragment extends Fragment {
     @BindView(R.id.cardButtonOrderNow) public Button cardButtonOrderNow;
     @BindView(R.id.cardPriceTotal) public TextView cardPriceTotal;
     @BindView(R.id.cardNbOfArticles) public TextView cardNbArticles;
-    DressViewModel model;
-    Retrofit retrofit;
-    IDressApi dressApi;
-    Call<Order> call;
-    Order order;
+    private DressViewModel model;
+    private Retrofit retrofit;
+    private IDressApi dressApi;
+    private Call<Order> call;
+    private Order order;
 
 
     public CardFragment() {

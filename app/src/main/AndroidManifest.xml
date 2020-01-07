@@ -12,15 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PartnerActivity"
+        <activity android:name=".view.activity.PartnerActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".SellingSpotActivity" />
-        <activity android:name=".MainScreenActivity"
+        <activity android:name=".view.activity.SettingsActivity" />
+        <activity android:name=".view.activity.SellingSpotActivity" />
+        <activity android:name=".view.activity.MainScreenActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ConnectionActivity" />
-        <activity android:name=".OpeningActivity"
+        <activity android:name=".view.activity.RegisterActivity" />
+        <activity android:name=".view.activity.ConnectionActivity" />
+        <activity android:name=".view.activity.OpeningActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

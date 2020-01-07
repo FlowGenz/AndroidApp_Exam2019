@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.fragment;
 
 
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
 
 import butterknife.BindView;
@@ -27,8 +29,8 @@ import retrofit2.Retrofit;
 public class HomeFragment extends Fragment {
 
     @BindView(R.id.homeSentenceOfTheDay) public TextView homeSentenceOfTheDay;
-    Retrofit retrofit;
-    IDressApi dressApi;
+    private Retrofit retrofit;
+    private IDressApi dressApi;
 
 
     public HomeFragment() {

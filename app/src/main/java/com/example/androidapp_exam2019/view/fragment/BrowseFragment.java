@@ -1,4 +1,4 @@
-package com.example.androidapp_exam2019;
+package com.example.androidapp_exam2019.view.fragment;
 
 
 import android.content.Context;
@@ -24,10 +24,13 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.example.androidapp_exam2019.viewModel.DressViewModel;
+import com.example.androidapp_exam2019.model.IOnItemSelectedListener;
+import com.example.androidapp_exam2019.R;
+import com.example.androidapp_exam2019.dataAccess.retrofit.RetrofitSingleton;
 import com.example.androidapp_exam2019.constants.AppSharedPreferences;
 import com.example.androidapp_exam2019.dataAccess.IDressApi;
 import com.example.androidapp_exam2019.model.Dress;
-import com.example.androidapp_exam2019.model.Favorite;
 import com.example.androidapp_exam2019.model.FavoriteDress;
 import com.example.androidapp_exam2019.model.post.FavoritePost;
 
@@ -48,11 +51,11 @@ public class BrowseFragment extends Fragment {
 
     @BindView(R.id.rvDressId) public RecyclerView rvDress;
     @BindView(R.id.svDressId) public SearchView searchViewDress;
-    DressViewModel model;
-    Retrofit retrofit;
-    IDressApi dressApi;
-    Call<ArrayList<Dress>> call;
-    Call<FavoriteDress> callIsFavorite;
+    private DressViewModel model;
+    private Retrofit retrofit;
+    private IDressApi dressApi;
+    private Call<ArrayList<Dress>> call;
+    private Call<FavoriteDress> callIsFavorite;
 
     public BrowseFragment() {
         // Required empty public constructor

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainScreenActivity">
+    tools:context=".view.activity.MainScreenActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mainScreenBottomNavigationViewId"
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/fragmentContainerId"
-        android:name="com.example.androidapp_exam2019.HomeFragment"
+        android:name="com.example.androidapp_exam2019.view.fragment.HomeFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="1dp"
