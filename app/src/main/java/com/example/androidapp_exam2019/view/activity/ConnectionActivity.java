@@ -64,6 +64,7 @@ public class ConnectionActivity extends AppCompatActivity {
                 if (ConnectionStateProvider.isOnline(getApplicationContext())) {
                     saveData();
                     SharedPreferences sharedPreferences = getSharedPreferences(AppSharedPreferences.SHARED_PREFERENCES, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
                     String username = sharedPreferences.getString(AppSharedPreferences.USERNAME, "");
                     String password = sharedPreferences.getString(AppSharedPreferences.PASSWORD, "");
 
@@ -77,7 +78,6 @@ public class ConnectionActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(AppSharedPreferences.ACCESS_TOKEN, response.body().getAccess_token());
                             dataAccess.userLogin(username, editor);
                         }
